@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="ZetPassServer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ZetPassServer_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ZetPassServer.jar">
+        <element id="module-output" name="ZetPassServer" />
+      </element>
+      <element id="library" level="project" name="org.sqlite.JDBC" />
+    </root>
+  </artifact>
+</component>
