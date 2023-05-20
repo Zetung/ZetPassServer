@@ -150,8 +150,14 @@ public class UserController implements Runnable{
                         if(status.equals("OK")){
                             outMess.println(status);
                             String loginFriend = reader.readLine();
+                            Parser parser = new Parser();
+                            ArrayList<String> tempArray = parser.parsingString(loginFriend);
                             RecordModel recordModel = (RecordModel) inObj.readObject();
-                            outMess.println(userDAO.share(login,loginFriend,recordModel));
+                            String answer = "NOT_FOUND";
+                            for (String tempLoginFriend: tempArray){
+                                answer = userDAO.share(login,tempLoginFriend,recordModel);
+                            }
+                            outMess.println(answer);
 
                             break;
                         }

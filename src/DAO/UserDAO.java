@@ -1,9 +1,11 @@
 package DAO;
 
+import Controller.Parser;
 import com.zetung.zetpass.model.RecordModel;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 
 public class UserDAO {
@@ -91,7 +93,8 @@ public class UserDAO {
             close();
             return "OK";
         } catch (SQLException e) {
-            return e.toString();
+
+            return errorPrint(e.toString());
         }
 
     }
@@ -103,14 +106,20 @@ public class UserDAO {
             String query = "SELECT login, password FROM user WHERE login='"+login+"'";
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
-            if(rs.getString("password").equals(password)){
+            if(rs.next()){
+                if(rs.getString("password").equals(password)){
+                    close();
+                    return "OK";
+                }
+            } else {
                 close();
-                return "OK";
+                return "NOT_FOUND";
             }
+
             close();
             return "WRONG_PASSWORD";
         } catch (SQLException e) {
-            return e.toString();
+            return errorPrint(e.toString());
         }
     }
 
@@ -138,7 +147,7 @@ public class UserDAO {
             close();
             return "OK";
         } catch (SQLException e) {
-            return e.toString();
+            return errorPrint(e.toString());
         }
 
     }
@@ -185,7 +194,7 @@ public class UserDAO {
                     close();
                     return "OK";
                 } catch (SQLException e) {
-                    return e.toString();
+                    return errorPrint(e.toString());
                 }
             }
         }
@@ -204,7 +213,7 @@ public class UserDAO {
                 close();
                 return "OK";
             } catch (SQLException e) {
-                return e.toString();
+                return errorPrint(e.toString());
             }
         }
         return "NOT_FOUND";
@@ -233,7 +242,7 @@ public class UserDAO {
                     close();
                     return "OK";
                 } catch (SQLException e) {
-                    return e.toString();
+                    return errorPrint(e.toString());
                 }
             }
         }
@@ -360,7 +369,7 @@ public class UserDAO {
 
             return "OK";
         } catch (SQLException e) {
-            return e.toString();
+            return errorPrint(e.toString());
         }
     }
 
@@ -376,7 +385,7 @@ public class UserDAO {
 
             return "OK";
         } catch (SQLException e) {
-            return e.toString();
+            return errorPrint(e.toString());
         }
     }
 
@@ -398,7 +407,7 @@ public class UserDAO {
                     close();
                     return "OK";
                 } catch (SQLException e) {
-                    return e.toString();
+                    return errorPrint(e.toString());
                 }
             }
         }
@@ -452,6 +461,18 @@ public class UserDAO {
         if(!connection.isClosed()){
             connection.close();
         }
+    }
+
+    private String errorPrint(String e){
+        String szDelemiters = "[";
+        String szDelemiters2 = "S";
+        String szDelemiters3 = "]";
+
+        StringTokenizer st = new StringTokenizer(e);
+        st.nextToken(szDelemiters);
+        st.nextToken(szDelemiters2);
+
+        return st.nextToken(szDelemiters3);
     }
 
 }
