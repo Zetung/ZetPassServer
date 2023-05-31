@@ -40,9 +40,7 @@ public class UserController implements Runnable{
                 socket.setKeepAlive(true);
                 socket.setSoTimeout(20000);
 
-                //System.out.println("Listen...");
                 request = reader.readLine();
-                //System.out.println(request);
                 StringTokenizer st = new StringTokenizer(request, szDelemiters, true);
                 requestType = st.nextToken();
                 st.nextToken();
@@ -53,25 +51,19 @@ public class UserController implements Runnable{
                 password = st.nextToken();
 
                 System.out.println(login+" want to "+requestType);
-//                System.out.println(login);
-//                System.out.println(password);
                 switch (requestType) {
                     case "REG":
                         outMess.println(userDAO.registration(mail, login, password));
-
                         break;
                     case "ENTER":
                         outMess.println(userDAO.enter(login, password));
-
                         break;
                     case "SAVE":
                         status = userDAO.enter(login,password);
                         if(status.equals("OK")){
                             outMess.println(status);
-
                             ArrayList<RecordModel> temp = (ArrayList<RecordModel>) inObj.readObject();
                             outMess.println(userDAO.save(login,temp));
-
                             break;
                         }
                         outMess.println(status);
@@ -90,16 +82,10 @@ public class UserController implements Runnable{
                         break;
                     case "ADD_FRIEND":
                         status = userDAO.enter(login,password);
-                        //System.out.println(status);
                         if(status.equals("OK")){
                             outMess.println(status);
-                            //System.out.println(status);
-
                             String loginFriend = reader.readLine();
-                            //System.out.println(loginFriend);
-
                             outMess.println(userDAO.addFriend(login,loginFriend));
-
                             break;
                         }
                         outMess.println(status);
@@ -107,7 +93,6 @@ public class UserController implements Runnable{
                         break;
                     case "CHECK_INVITE":
                         status = userDAO.enter(login,password);
-                        //System.out.println(status);
                         if(status.equals("OK")){
                             outMess.println(status);
                             Parser parser = new Parser();
@@ -119,7 +104,6 @@ public class UserController implements Runnable{
                         break;
                     case "CHECK_INBOX":
                         status = userDAO.enter(login,password);
-                        //System.out.println(status);
                         if(status.equals("OK")){
                             outMess.println(status);
                             Parser parser = new Parser();
@@ -132,7 +116,6 @@ public class UserController implements Runnable{
                         break;
                     case "CONFIRM_FRIEND":
                         status = userDAO.enter(login,password);
-                        //System.out.println(status);
                         if(status.equals("OK")){
                             outMess.println(status);
 
@@ -146,7 +129,6 @@ public class UserController implements Runnable{
                         break;
                     case "SHARE":
                         status = userDAO.enter(login,password);
-                        //System.out.println(status);
                         if(status.equals("OK")){
                             outMess.println(status);
                             String loginFriend = reader.readLine();

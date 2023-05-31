@@ -1,6 +1,5 @@
 package DAO;
 
-import Controller.Parser;
 import com.zetung.zetpass.model.RecordModel;
 
 import java.sql.*;
@@ -270,9 +269,7 @@ public class UserDAO {
                 chechkEmpty = true;
             }
             close();
-//            closeConnection();
-//
-//            connection = DriverManager.getConnection(DB_URL);
+
             if (chechkEmpty){
                 statement = connection.createStatement();
 
@@ -336,9 +333,6 @@ public class UserDAO {
                 chechkEmpty = true;
             }
             close();
-//            closeConnection();
-//
-//            connection = DriverManager.getConnection(DB_URL);
             if (chechkEmpty){
                 statement = connection.createStatement();
 
