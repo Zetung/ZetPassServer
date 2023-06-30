@@ -1,4 +1,4 @@
-package Controller;
+package сontroller;
 
 import DAO.UserDAO;
 import com.zetung.zetpass.model.RecordModel;
